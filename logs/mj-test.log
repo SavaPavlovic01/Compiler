@@ -1,0 +1,308 @@
+INFO  01:50:21,848 - Compiling source file: C:\Users\ps200536d\Desktop\projekti\pp projekat\Compiler\test\inkrementalno
+INFO  01:50:21,889 - #2 program
+INFO  01:50:21,889 - #45 MJCompiler
+INFO  01:50:21,889 - #5 namespace
+INFO  01:50:21,889 - #45 Konstante
+INFO  01:50:21,889 - #3 {
+INFO  01:50:21,889 - #6 const
+INFO  01:50:21,890 - #45 int
+INFO  01:50:21,890 - #45 nula
+INFO  01:50:21,890 - #10 =
+INFO  01:50:21,890 - #46 0
+INFO  01:50:21,890 - #11 ;
+INFO  01:50:21,890 - #6 const
+INFO  01:50:21,890 - #45 int
+INFO  01:50:21,890 - #45 jedan
+INFO  01:50:21,890 - #10 =
+INFO  01:50:21,890 - #46 1
+INFO  01:50:21,890 - #11 ;
+INFO  01:50:21,891 - #6 const
+INFO  01:50:21,891 - #45 int
+INFO  01:50:21,891 - #45 pet
+INFO  01:50:21,891 - #10 =
+INFO  01:50:21,891 - #46 5
+INFO  01:50:21,891 - #11 ;
+INFO  01:50:21,891 - #3 {
+INFO  01:50:21,891 - #4 }
+INFO  01:50:21,891 - #4 }
+INFO  01:50:21,891 - #3 {
+INFO  01:50:21,891 - #18 void
+INFO  01:50:21,891 - #45 main
+INFO  01:50:21,891 - #16 (
+INFO  01:50:21,892 - #17 )
+INFO  01:50:21,892 - #45 int
+INFO  01:50:21,892 - #45 bodovi
+INFO  01:50:21,892 - #11 ;
+INFO  01:50:21,892 - #45 int
+INFO  01:50:21,892 - #45 niz
+INFO  01:50:21,893 - #7 [
+INFO  01:50:21,893 - #8 ]
+INFO  01:50:21,893 - #11 ;
+INFO  01:50:21,893 - #3 {
+INFO  01:50:21,893 - #45 bodovi
+INFO  01:50:21,893 - #10 =
+INFO  01:50:21,893 - #46 0
+INFO  01:50:21,894 - #11 ;
+INFO  01:50:21,894 - #45 niz
+INFO  01:50:21,894 - #10 =
+INFO  01:50:21,894 - #25 new
+INFO  01:50:21,894 - #45 int
+INFO  01:50:21,894 - #7 [
+INFO  01:50:21,894 - #46 5
+INFO  01:50:21,895 - #8 ]
+INFO  01:50:21,895 - #11 ;
+INFO  01:50:21,895 - #45 niz
+INFO  01:50:21,895 - #7 [
+INFO  01:50:21,895 - #46 0
+INFO  01:50:21,895 - #8 ]
+INFO  01:50:21,895 - #10 =
+INFO  01:50:21,895 - #46 3
+INFO  01:50:21,895 - #11 ;
+INFO  01:50:21,895 - #19 print
+INFO  01:50:21,895 - #16 (
+INFO  01:50:21,895 - #45 niz
+INFO  01:50:21,895 - #7 [
+INFO  01:50:21,895 - #45 bodovi
+INFO  01:50:21,895 - #8 ]
+INFO  01:50:21,895 - #17 )
+INFO  01:50:21,895 - #11 ;
+INFO  01:50:21,895 - #19 print
+INFO  01:50:21,896 - #16 (
+INFO  01:50:21,896 - #45 niz
+INFO  01:50:21,896 - #7 [
+INFO  01:50:21,896 - #45 Konstante
+INFO  01:50:21,896 - #12 :
+INFO  01:50:21,896 - #12 :
+INFO  01:50:21,896 - #45 nula
+INFO  01:50:21,896 - #8 ]
+INFO  01:50:21,896 - #17 )
+INFO  01:50:21,896 - #11 ;
+INFO  01:50:21,896 - #4 }
+INFO  01:50:21,896 - #4 }
+INFO  01:50:21,900 - ProgramFour(
+  ProgName(
+   MJCompiler
+  ) [ProgName]
+  NamespaceListEnd(
+    NamespaceTwo(
+      NamespaceName(
+       Konstante
+      ) [NamespaceName]
+      DeclListsLoopConst(
+        DeclListsLoopConst(
+          DeclListsEndConst(
+            ConstDeclNum(
+              TypeVar(
+               int
+              ) [TypeVar]
+             nula
+             0
+              ConstDeclLoopNumEnd(
+              ) [ConstDeclLoopNumEnd]
+            ) [ConstDeclNum]
+          ) [DeclListsEndConst]
+          ConstDeclNum(
+            TypeVar(
+             int
+            ) [TypeVar]
+           jedan
+           1
+            ConstDeclLoopNumEnd(
+            ) [ConstDeclLoopNumEnd]
+          ) [ConstDeclNum]
+        ) [DeclListsLoopConst]
+        ConstDeclNum(
+          TypeVar(
+           int
+          ) [TypeVar]
+         pet
+         5
+          ConstDeclLoopNumEnd(
+          ) [ConstDeclLoopNumEnd]
+        ) [ConstDeclNum]
+      ) [DeclListsLoopConst]
+    ) [NamespaceTwo]
+  ) [NamespaceListEnd]
+  MethodDeclListEnd(
+    MethodDeclTwo(
+      MethodName(
+       main
+      ) [MethodName]
+      FormParsNo(
+      ) [FormParsNo]
+      VarDeclListLoop(
+        VarDeclListEnd(
+          VarDeclTwo(
+            TypeVar(
+             int
+            ) [TypeVar]
+           bodovi
+            VarDeclLoopEnd(
+            ) [VarDeclLoopEnd]
+          ) [VarDeclTwo]
+        ) [VarDeclListEnd]
+        VarDeclOne(
+          TypeVar(
+           int
+          ) [TypeVar]
+         niz
+          VarDeclLoopEnd(
+          ) [VarDeclLoopEnd]
+        ) [VarDeclOne]
+      ) [VarDeclListLoop]
+      StatementListLoop(
+        StatementListLoop(
+          StatementListLoop(
+            StatementListLoop(
+              StatementListLoop(
+                StatementListEnd(
+                ) [StatementListEnd]
+                StatementOne(
+                  DesignatorStatementOne(
+                    DesignatorFour(
+                     bodovi
+                    ) [DesignatorFour]
+                    Assignop(
+                    ) [Assignop]
+                    ExprFour(
+                      TermTwo(
+                        FactorNum(
+                         0
+                        ) [FactorNum]
+                      ) [TermTwo]
+                      AddopLoopEnd(
+                      ) [AddopLoopEnd]
+                    ) [ExprFour]
+                  ) [DesignatorStatementOne]
+                ) [StatementOne]
+              ) [StatementListLoop]
+              StatementOne(
+                DesignatorStatementOne(
+                  DesignatorFour(
+                   niz
+                  ) [DesignatorFour]
+                  Assignop(
+                  ) [Assignop]
+                  ExprFour(
+                    TermTwo(
+                      FactorNewArr(
+                        TypeVar(
+                         int
+                        ) [TypeVar]
+                        ExprFour(
+                          TermTwo(
+                            FactorNum(
+                             5
+                            ) [FactorNum]
+                          ) [TermTwo]
+                          AddopLoopEnd(
+                          ) [AddopLoopEnd]
+                        ) [ExprFour]
+                      ) [FactorNewArr]
+                    ) [TermTwo]
+                    AddopLoopEnd(
+                    ) [AddopLoopEnd]
+                  ) [ExprFour]
+                ) [DesignatorStatementOne]
+              ) [StatementOne]
+            ) [StatementListLoop]
+            StatementOne(
+              DesignatorStatementOne(
+                DesignatorThree(
+                 niz
+                  DesignatorLoopFour(
+                    ExprFour(
+                      TermTwo(
+                        FactorNum(
+                         0
+                        ) [FactorNum]
+                      ) [TermTwo]
+                      AddopLoopEnd(
+                      ) [AddopLoopEnd]
+                    ) [ExprFour]
+                  ) [DesignatorLoopFour]
+                ) [DesignatorThree]
+                Assignop(
+                ) [Assignop]
+                ExprFour(
+                  TermTwo(
+                    FactorNum(
+                     3
+                    ) [FactorNum]
+                  ) [TermTwo]
+                  AddopLoopEnd(
+                  ) [AddopLoopEnd]
+                ) [ExprFour]
+              ) [DesignatorStatementOne]
+            ) [StatementOne]
+          ) [StatementListLoop]
+          StatementNine(
+            ExprFour(
+              TermTwo(
+                FactorDesignator(
+                  DesignatorThree(
+                   niz
+                    DesignatorLoopFour(
+                      ExprFour(
+                        TermTwo(
+                          FactorDesignator(
+                            DesignatorFour(
+                             bodovi
+                            ) [DesignatorFour]
+                          ) [FactorDesignator]
+                        ) [TermTwo]
+                        AddopLoopEnd(
+                        ) [AddopLoopEnd]
+                      ) [ExprFour]
+                    ) [DesignatorLoopFour]
+                  ) [DesignatorThree]
+                ) [FactorDesignator]
+              ) [TermTwo]
+              AddopLoopEnd(
+              ) [AddopLoopEnd]
+            ) [ExprFour]
+          ) [StatementNine]
+        ) [StatementListLoop]
+        StatementNine(
+          ExprFour(
+            TermTwo(
+              FactorDesignator(
+                DesignatorThree(
+                 niz
+                  DesignatorLoopFour(
+                    ExprFour(
+                      TermTwo(
+                        FactorDesignator(
+                          DesignatorTwo(
+                           Konstante
+                           nula
+                          ) [DesignatorTwo]
+                        ) [FactorDesignator]
+                      ) [TermTwo]
+                      AddopLoopEnd(
+                      ) [AddopLoopEnd]
+                    ) [ExprFour]
+                  ) [DesignatorLoopFour]
+                ) [DesignatorThree]
+              ) [FactorDesignator]
+            ) [TermTwo]
+            AddopLoopEnd(
+            ) [AddopLoopEnd]
+          ) [ExprFour]
+        ) [StatementNine]
+      ) [StatementListLoop]
+    ) [MethodDeclTwo]
+  ) [MethodDeclListEnd]
+) [ProgramFour]
+INFO  01:50:21,900 - ===================================
+INFO  01:50:21,903 - Opened scope
+INFO  01:50:21,903 - Konstante
+INFO  01:50:21,903 - Ended Konstante
+INFO  01:50:21,903 - Method opened scope
+INFO  01:50:21,903 - main has 0
+INFO  01:50:21,904 - Method closed scope
+INFO  01:50:21,904 - Closed program scope
+INFO  01:50:21,907 - bodovi0
+INFO  01:50:21,907 - sava1
+INFO  01:50:21,907 - Konstante::nula0
+INFO  01:50:21,907 - sava1

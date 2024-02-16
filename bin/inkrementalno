@@ -1,0 +1,21 @@
+program MJCompiler 
+namespace Konstante{
+    const int nula = 0;
+    const int jedan = 1;
+    const int pet = 5;
+
+    {}
+}
+{
+    void main()
+        int bodovi;
+        //bool bt;
+        int niz[];
+        {
+        bodovi = 0;
+        niz = new int[5];
+        niz[0] = 3;
+        print(niz[bodovi]);
+        print(niz[Konstante::nula]);
+    }
+}

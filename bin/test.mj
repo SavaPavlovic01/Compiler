@@ -1,0 +1,82 @@
+//Test 303
+
+program test_303
+
+namespace Predmeti{
+
+	class Predmet
+	{
+		 int tezina;
+		 char vrsta;
+		{
+			 void postaviTezinu(int tezina) {}  
+			 void ucitajTezinu() {}
+			 int zapremina() {}
+			 int Q() {}
+			 void postaviVrstu(char vrsta) {}
+			 char dohvVrstu() {}
+			 int dohvTezinu() { }
+			 void ispisi() {}
+		}
+	}
+
+	class Sfera extends Predmet
+	{
+		int r;
+		{
+			
+			 void postaviPoluprecnik(int r) {}
+			 
+			 int zapremina()
+				int z;
+			{
+				
+			}
+
+		}
+	}
+
+	class Kvadar extends Predmet
+	{
+		 int a, b, c;
+		{
+			
+			 void postaviStranice(int a, int b, int c) {}
+			 int zapremina()
+				int z;
+			{
+				
+			}
+		
+		}
+	}
+	
+	{}
+}
+
+const int cinilac = 4, delilac = 3;
+
+class ProstiBrojevi{
+	
+	static int prosti[];
+	static int X,i,j;
+	static bool flag;
+	
+	static{
+	}
+
+}
+
+int zapreminaK, zapreminaS;
+int tezinaK, tezinaS;
+{
+
+	void ispis( Predmeti::Predmet p)
+	{
+	}
+		
+	void main() Predmeti::Predmet predmeti[]; int i; Predmeti::Sfera s1, s2, s3; Predmeti::Kvadar k1, k2, k3; int t;
+	{
+
+	}
+}

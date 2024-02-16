@@ -1,0 +1,287 @@
+package rs.ac.bg.etf.pp1;
+
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import rs.ac.bg.etf.pp1.ast.*;
+
+parser code {:
+
+	Logger log = Logger.getLogger(getClass());
+   
+   
+    // slede redefinisani metodi za prijavu gresaka radi izmene teksta poruke
+     
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception {
+      done_parsing();
+      report_error(message, info);
+    }
+  
+    public void syntax_error(Symbol cur_token) {
+        report_error("\nSintaksna greska", cur_token);
+    }
+  
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception {
+        report_fatal_error("Fatalna greska, parsiranje se ne moze nastaviti", cur_token);
+    }
+
+    public void report_error(String message, Object info) {
+    	StringBuilder msg = new StringBuilder(message); 
+    	if (info instanceof Symbol)
+            msg.append (" na liniji ").append(((Symbol)info).left);
+        log.error(msg.toString());
+    }
+
+
+:}
+
+
+scan with {:
+	Symbol s = this.getScanner().next_token();
+	if (s != null && s.value != null) 
+		log.info(s.toString() + " " + s.value.toString());
+	return s;
+:}
+
+terminal PROG, LBRACE, RBRACE, NAMESPACE, CONST, LSQR, RSQR;
+terminal COMMA, EQUAL, SEMI, COLON, CLASS;
+terminal EXTENDS, STATIC, LPAREN, RPAREN, VOID;
+terminal PRINT, RETURN, PLUS, BREAK, ELSE, IF, NEW, READ, CONTINUE, FOR, MINUS, STAR, SLASH;
+terminal PERCENT, COMPARE, NOT_EQUAL, BIGGER, SMALLER, BEQ, LEQ, AND, OR, INC, DECR, ARROW, DOT;
+
+nonterminal Program, NamespaceList, ConstDeclList, MethodDeclList, VarDeclList, ClassDeclList, Namespace;
+nonterminal ConstDecl, ConstDeclLoop, ConstDeclNext, ClassDeclPreamble;
+nonterminal VarDeclLoop, VarDeclNext, MethodDecl, ClassDecl;
+nonterminal StaticVarDeclList, StaticInit, StaticInitList, FormPars, FormParsLoop, StatementList;
+nonterminal DeclLists, Statement, Assignop, Addop, Relop, Mulop, DesignatorLoop;
+nonterminal AddopLoop, MulopLoop, ActPars, ActParsLoop, ForFirst, ForFirstLoop;
+nonterminal ForSecond, ForThird, ConditionLoop, CondTermLoop;
+nonterminal PrintLoop, DesignatorStatement, DesStatementLoop;
+nonterminal ConstDeclLoopNum, ConstDeclLoopChar, ConstDeclLoopBool, MyDummy;
+nonterminal ConstDeclNextNum, ConstDeclNextChar, ConstDeclNextBool, For, Min, Help;
+
+terminal String IDENT;
+terminal Integer NUM_CONST;
+terminal Character CHAR_CONST;
+terminal Boolean BOOL_CONST;
+
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgName, NamespaceName, VarName, VarDecl, MethodName, FormParName, Designator;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Type, Factor, Expr, Term, FirstSemi, SecondSemi;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct Condition, CondTerm, CondFact, Test, HelpIf, IfIdent, DummyElse;
+
+precedence left ELSE;
+precedence left RPAREN;
+
+
+Program ::= (ProgramOne) PROG ProgName NamespaceList DeclLists LBRACE MethodDeclList RBRACE |
+	(ProgramTwo) PROG ProgName DeclLists LBRACE MethodDeclList RBRACE |
+	(ProgramThree) PROG ProgName LBRACE RBRACE |
+	(ProgramFour) PROG ProgName NamespaceList LBRACE MethodDeclList RBRACE |
+	(ProgramFive) PROG ProgName NamespaceList LBRACE RBRACE |
+	(ProgramSix) PROG ProgName NamespaceList DeclLists LBRACE RBRACE |
+	(ProgramSeven) PROG ProgName DeclLists LBRACE RBRACE |
+	(ProgramEight) PROG ProgName LBRACE MethodDeclList RBRACE;
+
+ProgName ::= (ProgName) IDENT;
+	
+DeclLists ::= (DeclListsLoopConst) DeclLists ConstDecl | 
+	(DeclListsLoopVar) DeclLists VarDecl | 
+	(DeclListsLoopClass) DeclLists ClassDecl | 
+	(DeclListsEndConst) ConstDecl | 
+	(DeclListsEndVar) VarDecl | 
+	(DeclListsEndClass) ClassDecl;
+	
+NamespaceList ::= (NamespaceListLoop) NamespaceList Namespace | (NamespaceListEnd) Namespace;
+
+Namespace ::= (NamespaceOne) NAMESPACE NamespaceName LBRACE DeclLists LBRACE MethodDeclList RBRACE RBRACE |
+	(NamespaceFour)NAMESPACE NamespaceName LBRACE LBRACE MethodDeclList RBRACE RBRACE |
+	(NamespaceTwo) NAMESPACE NamespaceName LBRACE DeclLists LBRACE RBRACE RBRACE |
+	(NamespaceThree) NAMESPACE NamespaceName LBRACE LBRACE RBRACE RBRACE;
+	
+	
+NamespaceName ::= (NamespaceName) IDENT;
+	
+ConstDeclList ::= (ConstDeclListLoop) ConstDeclList ConstDecl | (ConstDeclListEnd) ConstDecl;
+
+ConstDecl ::= (ConstDeclNum) CONST Type IDENT EQUAL NUM_CONST ConstDeclLoopNum SEMI |
+	(ConstDeclChar) CONST Type IDENT EQUAL CHAR_CONST ConstDeclLoopChar SEMI |
+	(ConstDeclBool) CONST Type IDENT EQUAL BOOL_CONST ConstDeclLoopBool SEMI;
+	
+ConstDeclLoopNum ::= (ConstDeclLoopNumOne) ConstDeclLoopNum ConstDeclNextNum | (ConstDeclLoopNumEnd);
+
+ConstDeclLoopChar ::= (ConstDeclLoopCharOne) ConstDeclLoopChar ConstDeclNextChar | (ConstDeclLoopCharEnd);
+
+ConstDeclLoopBool ::= (ConstDeclLoopBoolOne) ConstDeclLoopBool ConstDeclNextBool | (ConstDeclLoopBoolEnd);
+
+ConstDeclNextNum ::= (ConstDeclNextNum) COMMA IDENT EQUAL NUM_CONST;
+
+ConstDeclNextChar ::= (ConstDeclNextChar) COMMA IDENT EQUAL CHAR_CONST;
+
+ConstDeclNextBool ::= (ConstDeclNextBool) COMMA IDENT EQUAL BOOL_CONST;
+
+ConstDeclLoop ::= (ConstDeclLoopOne) ConstDeclLoop ConstDeclNext | (ConstDeclLoopEnd);
+
+ConstDeclNext ::= (ContDeclNextNum) COMMA IDENT EQUAL NUM_CONST |
+	(ContDeclNextChar) COMMA IDENT EQUAL CHAR_CONST |
+	(ContDeclNextBool) COMMA IDENT EQUAL BOOL_CONST;
+	
+VarDeclList ::= (VarDeclListLoop) VarDeclList VarDecl | (VarDeclListEnd) VarDecl;
+
+VarDecl ::= (VarDeclOne) Type IDENT LSQR RSQR VarDeclLoop SEMI |
+	(VarDeclTwo) Type IDENT VarDeclLoop SEMI;
+	
+VarName ::= (VarName) IDENT;	
+	
+VarDeclLoop ::= (VarDeclLoopOne) VarDeclLoop VarDeclNext | (VarDeclLoopEnd);
+	
+VarDeclNext ::= (VarDeclNextOne) COMMA IDENT LSQR RSQR |
+	(VarDeclNextTwo) COMMA IDENT;
+	
+ClassDeclList ::= (ClassDeclListLoop) ClassDeclList ClassDecl | (ClassDeclListEnd) ClassDecl;
+
+ClassDecl ::= (ClassDeclOne) CLASS IDENT EXTENDS Type LBRACE ClassDeclPreamble LBRACE MethodDeclList RBRACE RBRACE |
+	(ClassDeclTwo) CLASS IDENT EXTENDS Type LBRACE LBRACE MethodDeclList RBRACE RBRACE |
+	(ClassDeclThree) CLASS IDENT EXTENDS Type LBRACE RBRACE |
+	(ClassDeclFour) CLASS IDENT EXTENDS Type LBRACE ClassDeclPreamble RBRACE | 
+	(ClassDeclFive) CLASS IDENT LBRACE ClassDeclPreamble LBRACE MethodDeclList RBRACE RBRACE |
+	(ClassDeclSix) CLASS IDENT LBRACE ClassDeclPreamble RBRACE |
+	(ClassDeclSeven) CLASS IDENT LBRACE LBRACE MethodDeclList RBRACE RBRACE |
+	(ClassDeclEight) CLASS IDENT LBRACE RBRACE;
+	
+ClassDeclPreamble ::= (ClassDeclPreambleOne) StaticVarDeclList StaticInitList VarDeclList |
+	(ClassDeclPreambleTwo) StaticVarDeclList StaticInitList |
+	(ClassDeclPreambleThree) StaticVarDeclList VarDeclList |
+	(ClassDeclPreambleFour) StaticVarDeclList |
+	(ClassDeclPreambleFive) StaticInitList VarDeclList |
+	(ClassDeclPreambleSix) StaticInitList |
+	(ClassDeclPreambleSeven) VarDeclList;	
+	
+StaticVarDeclList ::= (StaticVarDeclListLoop) StaticVarDeclList STATIC VarDecl | (StaticVarDeclListEnd) STATIC VarDecl;
+
+StaticInitList ::= (StaticInitListLoop) StaticInitList StaticInit | (StaticInitListEnd) StaticInit;
+
+StaticInit ::= (StaticInit) STATIC LBRACE StatementList RBRACE;
+
+MethodDeclList ::= (MethodDeclListLoop) MethodDeclList MethodDecl | (MethodDeclListEnd) MethodDecl;
+	
+MethodDecl ::= (MethodDeclOne) Type MethodName LPAREN FormPars RPAREN VarDeclList LBRACE StatementList RBRACE |
+    (MethodDeclTwo) VOID MethodName LPAREN FormPars RPAREN VarDeclList LBRACE StatementList RBRACE |
+    (MethodDeclThree) Type MethodName LPAREN FormPars RPAREN LBRACE StatementList RBRACE |
+    (MethodDeclFour) VOID MethodName LPAREN FormPars RPAREN LBRACE StatementList RBRACE;
+    
+MethodName ::= (MethodName) IDENT;
+
+FormPars ::= (FormParsArr) Type FormParName LSQR RSQR FormParsLoop |
+    (FormParsVar) Type FormParName FormParsLoop | (FormParsNo);
+    
+FormParName ::= (FormParName) IDENT;
+
+FormParsLoop ::= (FormParsLoopArr) FormParsLoop COMMA Type FormParName LSQR RSQR |
+    (FormParsLoopVar) FormParsLoop COMMA Type FormParName | (FormParsLoopNo);
+    
+
+Type ::= (TypeVar) IDENT | (TypeNamespace) IDENT COLON COLON IDENT;
+
+StatementList ::= (StatementListLoop) StatementList Statement | (StatementListEnd);
+
+Assignop ::= (Assignop) EQUAL;
+
+Relop ::= (RelopComp) COMPARE | (RelopNotEq) NOT_EQUAL | (RelopBigger) BIGGER |
+	(RelopSmaller) SMALLER | (RelopBeq) BEQ | (RelopLeq) LEQ;
+
+Addop ::= (AddopPlus) PLUS | (AddopMinus) MINUS;
+
+Mulop ::= (MulopStar) STAR | (MulopSlash) SLASH | (MulopPercent) PERCENT;
+
+Designator ::= (DesignatorOne) IDENT COLON COLON IDENT DesignatorLoop |
+	(DesignatorTwo) IDENT COLON COLON IDENT |
+	(DesignatorThree) IDENT DesignatorLoop |
+	(DesignatorFour) IDENT;
+	
+DesignatorLoop ::= (DesignatorLoopOne) DOT IDENT DesignatorLoop |
+	(DesignatorLoopTwo) LSQR Expr RSQR DesignatorLoop |
+	(DesignatorLoopThree) DOT IDENT | (DesignatorLoopFour) LSQR Expr RSQR;
+
+Expr ::= (ExprOne) Min Term AddopLoop | (ExprFour) Term AddopLoop;
+	
+Min ::= (Min) MINUS;
+
+AddopLoop ::= (AddopLoopOne) AddopLoop Addop Term | (AddopLoopEnd);
+
+Term ::= (TermOne) MulopLoop Mulop Factor | (TermTwo) Factor;
+
+MulopLoop ::= (MulopLoopOne) MulopLoop Mulop Factor | (MulopLoopEnd) Factor;
+
+Factor ::= (FactorNum) NUM_CONST | (FactorChar) CHAR_CONST | (FactorBool) BOOL_CONST |
+	(FactorParen) LPAREN Expr RPAREN |
+	(FactorNewArr) NEW Type LSQR Expr RSQR |
+	(FactorNewConstructorArgs) NEW Type LPAREN ActPars RPAREN |
+	(FactorNewConstructor) NEW Type LPAREN RPAREN |
+	(FactorTest) Test | 
+	(FactorDesignator) Designator;
+	
+Test ::= (TestOne) Designator MyDummy ActPars RPAREN | (TestTwo) Designator LPAREN RPAREN ;
+
+MyDummy ::= (MyDummy) LPAREN;
+
+ActPars ::= (ActPars) Expr ActParsLoop;
+
+ActParsLoop ::= (ActParsLoopOne) ActParsLoop COMMA Expr   | (ActParsLoopEpsilon);
+
+Statement ::= (StatementOne) DesignatorStatement SEMI |
+	(StatementTwo) BREAK SEMI | (StatementThree) CONTINUE SEMI | (StatementFour) RETURN Expr SEMI |
+	(StatementFive) RETURN SEMI |
+	(StatementSix) READ LPAREN Designator RPAREN SEMI | 
+	(StatementSeven) LBRACE StatementList RBRACE |
+	(StatementEight) PRINT LPAREN Expr PrintLoop RPAREN SEMI |
+	(StatementNine) PRINT LPAREN Expr RPAREN SEMI |
+	(StatementTen) For LPAREN ForFirst FirstSemi ForSecond SecondSemi ForThird RPAREN Statement |
+	(StatementEleven) For LPAREN FirstSemi SecondSemi RPAREN Statement |
+	(StatementTwelve) For LPAREN ForFirst FirstSemi ForSecond SecondSemi RPAREN Statement |
+	(StatementThirteen) For LPAREN ForFirst FirstSemi SecondSemi ForThird RPAREN Statement |
+	(StatementFourteen) For LPAREN FirstSemi ForSecond SecondSemi ForThird RPAREN Statement |
+	(StatementFifteen) For LPAREN FirstSemi ForSecond SecondSemi RPAREN Statement |
+	(StatementSixteen) For LPAREN ForFirst FirstSemi SecondSemi RPAREN Statement |
+	(StatementSeventeen) IfIdent LPAREN Condition HelpIf Statement DummyElse Statement |
+	(StatementEighteen) IfIdent LPAREN Condition HelpIf Statement;
+	
+For ::= (For) FOR;
+
+FirstSemi ::= (FirstSemi) SEMI;
+
+SecondSemi ::= (SecondSemi) SEMI;
+
+DummyElse ::= (DummyElse) ELSE;
+
+IfIdent ::= (IfIdent) IF;
+
+HelpIf ::= (HelpIf) RPAREN;
+	
+ForFirst ::= (ForFirstOne) DesignatorStatement ForFirstLoop | (ForFirstSecond) DesignatorStatement;
+
+ForFirstLoop ::= (ForFirstLoopOne) COMMA DesignatorStatement ForFirstLoop | (ForFirstLoopEnd) COMMA DesignatorStatement;
+
+ForSecond ::= (ForSecond) CondFact;
+
+ForThird ::= (ForThird) ForFirst;
+
+Condition ::= (ConditionOne) CondTerm ConditionLoop | (ConditionTwo) CondTerm;
+
+ConditionLoop ::= (ConditionLoopOne) OR CondTerm ConditionLoop | (ConditionLoopEnd) OR CondTerm;
+
+CondTerm ::= (CondTermOne) CondFact CondTermLoop | (CondTermTwo) CondFact;
+
+CondTermLoop ::= (CondTermLoopOne) AND CondFact CondTermLoop | (CondTermLoopTwo) AND CondFact;
+
+CondFact ::= (CondFactOne) Expr | (CondFactTwo) Expr Relop Expr;
+	
+PrintLoop ::= (PrintLoopOne) COMMA NUM_CONST PrintLoop | (PrintLoopTwo) COMMA NUM_CONST;
+
+DesignatorStatement ::= (DesignatorStatementOne) Designator Assignop Expr | (DesignatorStatementTwo) Test |
+	(DesignatorStatementThree) Designator INC | (DesignatorStatementFour) Designator DECR | 
+	(DesignatorStatementFive) Help DesStatementLoop STAR Designator RSQR EQUAL Designator |
+	(DesignatorStatementSix) Help STAR Designator RSQR EQUAL Designator;
+	
+DesStatementLoop ::= (DesStatementLoopOne) Designator COMMA DesStatementLoop | (DesStatementLoopTwo) COMMA DesStatementLoop |
+	(DesStatementLoopThree) Designator COMMA | (DesStatementLoopFour) COMMA;
+
+Help ::= (Help) LSQR;
